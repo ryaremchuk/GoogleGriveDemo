@@ -8,6 +8,6 @@ namespace GoogleDriveDemo.Services
 {
     public interface IDriveWorker
     {
-        Task<ActionResult> RunAction(Controller controller, CancellationToken cancellationToken, Func<DriveService, Task<ActionResult>> viewResult);
+        Task<ActionResult> RunAction(Controller controller, CancellationToken cancellationToken, Func<DriveService, ActionResult> viewResult);
     }
 }

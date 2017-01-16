@@ -10,7 +10,7 @@ namespace GoogleDriveDemo.Services
 {
     public class DriveWorker: IDriveWorker
     {
-        public async Task<ActionResult> RunAction(Controller controller, CancellationToken cancellationToken, Func<DriveService, Task<ActionResult>> viewResult)
+        public async Task<ActionResult> RunAction(Controller controller, CancellationToken cancellationToken, Func<DriveService, ActionResult> viewResult)
         {
             var result = await new AuthorizationCodeMvcApp(controller, new AuthFlowMetadata()).AuthorizeAsync(cancellationToken);
 
@@ -22,7 +22,7 @@ namespace GoogleDriveDemo.Services
                     ApplicationName = "GoogleDriveDemo"
                 });
 
-                return await viewResult(service);
+                return viewResult(service);
             }
             else
             {

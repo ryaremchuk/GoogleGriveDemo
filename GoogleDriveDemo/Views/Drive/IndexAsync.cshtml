@@ -4,9 +4,35 @@
 
 <h2>@ViewBag.Title</h2>
 
-@for (var i = 0; i < ViewBag.FileNames.Length; i++)
-{
-    <p>@string.Format("{0}. {1}", i + 1, ViewBag.FileNames[i])</p>
-}
+<div id="Tabs" role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#personal" aria-controls="personal" role="tab" data-toggle="tab">
+                Personal (@ViewBag.PersonalFileNames.Length)
+            </a>
+        </li>
+        <li>
+            <a href="#sharedWithMe" aria-controls="sharedWithMe" role="tab" data-toggle="tab">
+                Shared With Me (@ViewBag.SharedWithMeFileNames.Length)
+            </a>
+        </li>
+    </ul>
 
-<h3>@ViewBag.Message</h3>
+    <div class="tab-content" style="padding-top: 20px">
+        <div role="tabpanel" class="tab-pane active" id="personal">
+            @for (var i = 0; i < ViewBag.PersonalFileNames.Length; i++)
+            {
+                <p>@string.Format("{0}. {1}", i + 1, ViewBag.PersonalFileNames[i])</p>
+            }
+        </div>
+        <div role="tabpanel" class="tab-pane" id="sharedWithMe">
+            @for (var i = 0; i < ViewBag.SharedWithMeFileNames.Length; i++)
+            {
+                <p>@string.Format("{0}. {1}", i + 1, ViewBag.SharedWithMeFileNames[i])</p>
+            }
+        </div>
+    </div>
+</div>
+
+
+
