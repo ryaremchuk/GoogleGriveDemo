@@ -11,7 +11,7 @@ namespace GoogleDriveDemo.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Google drive integration demo description page.";
+            ViewBag.Message = "Google Drive Integration Demo";
 
             return View();
         }
