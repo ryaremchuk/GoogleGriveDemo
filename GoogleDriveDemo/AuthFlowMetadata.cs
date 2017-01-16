@@ -7,7 +7,6 @@ using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Mvc;
 using Google.Apis.Drive.v3;
 using Google.Apis.Util.Store;
-using Microsoft.Ajax.Utilities;
 
 namespace GoogleDriveDemo
 {
@@ -22,7 +21,7 @@ namespace GoogleDriveDemo
                    ClientSecret = ConfigurationManager.AppSettings["google-oauth2-clientSecret"]
                },
                Scopes = new[] { DriveService.Scope.DriveReadonly },
-               //note: this is workaraound to not grant additional permissions for demo. RY
+               //todo: this is workaraound to not grant additional permissions for demo. Reimplement it in more correct way RY
                DataStore = new FileDataStore(Path.Combine(Path.GetTempPath(), "GoogleDriveTokenStorage"))
            });
 
