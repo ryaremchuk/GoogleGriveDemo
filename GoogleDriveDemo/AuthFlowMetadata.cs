@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Web.Mvc;
 using Google.Apis.Auth.OAuth2;
@@ -17,11 +18,11 @@ namespace GoogleDriveDemo
            {
                ClientSecrets = new ClientSecrets
                {
-                   ClientId = "419330205784-fbpn37q8d1n6se3s40q6986gdbl37mq8.apps.googleusercontent.com",
-                   ClientSecret = "zIqWOyVBp2KNFZP07rQ7egSd"
+                   ClientId = ConfigurationManager.AppSettings["google-oauth2-clientId"],
+                   ClientSecret = ConfigurationManager.AppSettings["google-oauth2-clientSecret"]
                },
                Scopes = new[] { DriveService.Scope.DriveReadonly },
-               //note: this is workaraound to not grant additional permissions for demo.
+               //note: this is workaraound to not grant additional permissions for demo. RY
                DataStore = new FileDataStore(Path.Combine(Path.GetTempPath(), "GoogleDriveTokenStorage"))
            });
 
