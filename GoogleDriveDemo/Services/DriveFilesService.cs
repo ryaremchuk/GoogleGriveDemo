@@ -10,26 +10,35 @@ namespace GoogleDriveDemo.Services
         public List<File> GetAllFiles(DriveService service)
         {
             var request = service.Files.List();
-            //todo: implement functionality to get all files with while loop. remove this hardcoded value RY 
-            request.PageSize = 1000;
-            request.Fields = "files(id, name, ownedByMe, sharingUser, fileExtension)";
+            request.Fields = "files(id, name, sharingUser)";
 
-            var list = request.Execute();
-
-            return list.Files.ToList();
+            return ExtractAllFiles(request);
         }
 
         public List<File> GetAllSharedWithMeFiles(DriveService service)
         {
             var request = service.Files.List();
             request.Q = @"sharedWithMe";
-            //todo: implement functionality to get all files with while loop. remove this hardcoded value RY 
-            request.PageSize = 1000;
-            request.Fields = "files(id, name, ownedByMe, sharingUser, fileExtension)";
+            request.Fields = "files(id, name, sharingUser)";
 
-            var list = request.Execute();
+            return ExtractAllFiles(request);
+        }
 
-            return list.Files.ToList();
+        private List<File> ExtractAllFiles(FilesResource.ListRequest request)
+        {
+            var result = new List<File>();
+            request.Fields = string.Join(",", "nextPageToken", request.Fields).TrimEnd(',');
+            request.PageSize = 500;
+
+            do
+            {
+                var response = request.Execute();
+                result.AddRange(response.Files.ToList());
+
+                request.PageToken = response.NextPageToken;
+            } while (!string.IsNullOrEmpty(request.PageToken));
+
+            return result;
         }
     }
 }

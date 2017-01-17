@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -19,7 +20,7 @@ namespace GoogleDriveDemo.Services
                 var service = new DriveService(new BaseClientService.Initializer
                 {
                     HttpClientInitializer = result.Credential,
-                    ApplicationName = "GoogleDriveDemo"
+                    ApplicationName = ConfigurationManager.AppSettings[ConfigKey.ApplicationName]
                 });
 
                 return viewResult(service);
